@@ -7,7 +7,7 @@
 #define PIXEL_COUNT 60
 #define BRIGHTNESS  25      //0-255  
 
-#define MAX_MODES 4
+#define MAX_MODES 6
 
 int SWPwrBl = 4;
 int SWModeGr = 8;
@@ -17,8 +17,15 @@ int SWModeGrLED = 6;
 
 int mode = 0;
 
+                    //    Red, Grn, Blu, Ylw, Wht
+uint8_t userRed[6] = { 0, 255,   0,   0, 200, 255 };
+uint8_t userGrn[6] = { 0,   0, 255,   0, 150, 255 };
+uint8_t userBlu[6] = { 0,   0,   0, 255,   0, 255 };
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
+
+
+
 
 void setup() {
 
@@ -67,8 +74,14 @@ void loop() {
          PixelsSolidSet(0,0,255);
          break;
       case 3:
-         PixelsSolidSet(255,255,255);
+         PixelsSolidSet(200,150,0);  // Yellow
          break;
+      case 4:
+         PixelsSolidSet(255,255,255); // White
+         break;
+      case 5:
+          PixelRandom();
+          break;
       default:
          PixelsSolidSet(50,50,50);
     }
@@ -87,6 +100,17 @@ void loop() {
   
 }
 
+
+// Functions
+
+void PixelRandom() {
+    int num = random(PIXEL_COUNT);
+    int col = random(5) + 1;
+    
+    strip.setPixelColor(num, userRed[col], userGrn[col], userBlu[col]);
+    strip.show();
+    delay(10);
+}
 
 void PixelsSolidSet(uint8_t r, uint8_t g, uint8_t b){
     // Flash Black
