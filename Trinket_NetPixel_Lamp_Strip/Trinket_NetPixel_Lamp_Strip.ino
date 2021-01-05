@@ -19,7 +19,7 @@ uint8_t SWModeGr = 8;
 uint8_t SWPwrBlLED = 5;
 uint8_t SWModeGrLED = 6; 
 
-uint8_t mode = 0;
+uint8_t mode = 6;
 
 // Define colors
                     //    Red, Grn, Blu, Ylw, Wht
